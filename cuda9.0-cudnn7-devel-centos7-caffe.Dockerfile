@@ -69,9 +69,6 @@ RUN yum --quiet -y install  python-devel python-pip && yum clean all &&  \
     pip install --quiet  nltk scikit-learn "pandas<0.22" && \
     pip install --quiet  opencv-python 
 
-  # cd /opt/git clone https://github.com/xianyi/OpenBLAS.git openblas && cd openblas && \
-  # make &&	make install
-
 RUN  pip install --quiet   git+https://github.com/adalisan/MMdnn.git@master 
 
 
