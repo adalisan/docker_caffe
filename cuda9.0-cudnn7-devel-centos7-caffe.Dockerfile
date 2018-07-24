@@ -25,7 +25,7 @@ RUN  yum   check-update  ||  yum groups mark install "Development Tools" && \
       curl  \
       yum-utils  && yum clean all
 RUN yum --quiet -y install libpng-devel  freetype-devel curl git unzip vim nano wget && yum clean all
-RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm & rpm -ivh epel-release-latest-7.noarch.rpm
+RUN wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && rpm -ivh epel-release-latest-7.noarch.rpm
 RUN yum   --quiet  -y install \
     bc \
     curl \
