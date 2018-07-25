@@ -69,9 +69,6 @@ RUN yum --quiet -y install  python-devel python-pip && yum clean all &&  \
     pip install --quiet  nltk scikit-learn "pandas<0.22" && \
     pip install --quiet  opencv-python 
 
-RUN  pip install --quiet   git+https://github.com/adalisan/MMdnn.git@master 
-
-
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.3.31-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
