@@ -63,5 +63,4 @@ RUN conda clean --all
 
 RUN jupyter contrib nbextension install --user
 RUN jt -t grade3 -f firacode -nf firacode -altp -fs 100 -tfs 100 -nfs 100 -dfs 100 -ofs 100 -cellw 88% -T
-RUN ipython profile create &&
-    echo "c = get_config(); c.IPCompleter.use_jedi = False" >> ~/.ipython/profile_default/ipython_config.py
+RUN ipython profile create && echo "c = get_config(); c.IPCompleter.use_jedi = False" >> ~/.ipython/profile_default/ipython_config.py
