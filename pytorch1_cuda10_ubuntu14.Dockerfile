@@ -57,6 +57,8 @@ RUN conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
     conda install -y pandas scikit-learn matplotlib pytables tensorflow-gpu keras && \
     conda install -c conda-forge jupyter_contrib_nbextensions lightgbm && \
     conda install faiss-gpu cudatoolkit=10.0 -c pytorch # For CUDA10
+#    conda install faiss-gpu cudatoolkit=10.1 -c pytorch # For CUDA10.1
+
 RUN conda clean --all
 
 RUN jupyter contrib nbextension install --user
