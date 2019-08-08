@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu14.04
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
          build-essential \
