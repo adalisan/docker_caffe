@@ -52,6 +52,8 @@ RUN pip install -U \
         tabulate \
         cloudpickle==0.5.6 # to suppress warning
 
+RUN . /opt/conda/etc/profile.d/conda.sh
+
 RUN conda install -y pytorch torchvision cuda92 -c pytorch && \
     conda install -y pandas scikit-learn matplotlib pytables tensorflow-gpu keras && \
     conda install -c conda-forge jupyter_contrib_nbextensions lightgbm

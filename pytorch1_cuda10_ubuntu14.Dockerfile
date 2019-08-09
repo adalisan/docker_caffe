@@ -27,6 +27,8 @@ ENV PATH=/opt/conda/bin:$PATH \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8
 
+RUN . /opt/conda/etc/profile.d/conda.sh
+
 RUN pip install -U \
         tqdm \
         click \
@@ -54,10 +56,10 @@ RUN pip install -U \
         cloudpickle==0.5.6 # to suppress warning
 
 
-RUN conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
-    conda install -y pandas scikit-learn matplotlib pytables tensorflow-gpu keras && \
-    conda install -c conda-forge jupyter_contrib_nbextensions lightgbm && \
-    conda install faiss-gpu cudatoolkit=10.0 -c pytorch # For CUDA10
+RUN conda install -y -q pytorch torchvision cudatoolkit=10.0 -c pytorch
+RUN conda install -y -q pandas scikit-learn matplotlib pytables tensorflow-gpu keras
+RUN conda install -y  -q -c conda-forge jupyter_contrib_nbextensions lightgbm
+RUN conda install -y -q faiss-gpu cudatoolkit=10.0 -c pytorch # For CUDA10
 
 # RUN conda update -n base conda
 RUN conda clean --all
