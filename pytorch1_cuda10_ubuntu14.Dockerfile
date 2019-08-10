@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu14.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
          build-essential \
@@ -56,14 +56,6 @@ RUN pip install -U \
         cloudpickle==0.5.6 # to suppress warning
 
 
-RUN conda install -y -q pytorch torchvision cudatoolkit=10.0 -c pytorch
-RUN conda install -y -q pandas scikit-learn matplotlib pytables tensorflow-gpu keras
-RUN conda install -y  -q -c conda-forge jupyter_contrib_nbextensions lightgbm
-RUN conda install -y -q faiss-gpu cudatoolkit=10.0 -c pytorch # For CUDA10
-
-# RUN conda update -n base conda
+RUN conda install -y -q -c pytorch pytorch torchvision cudatoolkit=10.0
+RUN conda install -y -q -c conda-forge pandas scikit-learn matplotlib pytables tensorflow-gpu keras faiss-gpu
 RUN conda clean --all
-
-RUN jupyter contrib nbextension install --user
-RUN jt -t grade3 -f firacode -nf firacode -altp -fs 100 -tfs 100 -nfs 100 -dfs 100 -ofs 100 -cellw 88% -T
-RUN ipython profile create && echo "c = get_config(); c.IPCompleter.use_jedi = False" >> ~/.ipython/profile_default/ipython_config.py
