@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu14.04
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
          build-essential \
@@ -27,19 +27,20 @@ ENV PATH=/opt/conda/bin:$PATH \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8
 
-RUN . /opt/conda/etc/profile.d/conda.sh
 
+RUN conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
+    conda install -y pandas scikit-learn matplotlib pytables tensorflow-gpu keras tqdm click logzero lockfile cython albumentations tabulate && \
+    conda install -c conda-forge jupyter_contrib_nbextensions lightgbm && \
+    conda install faiss-gpu cudatoolkit=10.0 -c pytorch # For CUDA10
+
+RUN conda activate
 RUN pip install -U \
-        tqdm \
-        click \
-        logzero \
         gensim \
         optuna \
         tensorboardX \
         scikit-image \
         lockfile \
         pytest \
-        Cython \
         pyyaml \
         jupyter \
         jupyterthemes \
@@ -49,13 +50,13 @@ RUN pip install -U \
         seaborn \
         pretrainedmodels \
         plotly \
-        albumentations \
         line-profiler \
-        tabulate \
         easydict \
         cloudpickle==0.5.6 # to suppress warning
 
-
-RUN conda install -y -q -c pytorch pytorch torchvision cudatoolkit=10.0
-RUN conda install -y -q -c conda-forge pandas scikit-learn matplotlib pytables tensorflow-gpu keras faiss-gpu
+# RUN conda update -n base conda
 RUN conda clean --all
+
+RUN jupyter contrib nbextension install --user
+RUN jt -t grade3 -f firacode -nf firacode -altp -fs 100 -tfs 100 -nfs 100 -dfs 100 -ofs 100 -cellw 88% -T
+RUN ipython profile create && echo "c = get_config(); c.IPCompleter.use_jedi = False" >> ~/.ipython/profile_default/ipython_config.py
