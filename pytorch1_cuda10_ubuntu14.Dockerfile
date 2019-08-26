@@ -27,13 +27,18 @@ ENV PATH=/opt/conda/bin:$PATH \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8
 
+ENV CONDA_DIR=/opt/conda
+RUN conda create -n pytorch_1_cuda10_py36 'python=3.6'
+RUN conda update -n base conda
+RUN conda activate pytorch_1_cuda10_py36
+RUN . $CONDA_DIR/etc/profile.d/conda.sh
 
 RUN conda install -y pytorch torchvision cudatoolkit=10.0 -c pytorch && \
     conda install -y pandas scikit-learn matplotlib pytables tensorflow-gpu keras tqdm click logzero lockfile cython albumentations tabulate && \
     conda install -c conda-forge jupyter_contrib_nbextensions lightgbm && \
     conda install faiss-gpu cudatoolkit=10.0 -c pytorch # For CUDA10
 
-RUN conda activate
+
 RUN pip install -U \
         gensim \
         optuna \
@@ -60,3 +65,4 @@ RUN conda clean --all
 RUN jupyter contrib nbextension install --user
 RUN jt -t grade3 -f firacode -nf firacode -altp -fs 100 -tfs 100 -nfs 100 -dfs 100 -ofs 100 -cellw 88% -T
 RUN ipython profile create && echo "c = get_config(); c.IPCompleter.use_jedi = False" >> ~/.ipython/profile_default/ipython_config.py
+#RUN conda deactivate
